@@ -1,1 +1,1 @@
-Test-Ruby
+Projet Ruby on Rails Stage
