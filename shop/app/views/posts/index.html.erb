@@ -1,0 +1,14 @@
+<h1>Article</h1>
+<div class="alert alert-success">
+  <%= notice %>
+</div>
+<ul>
+  <% @posts.each do |post|%>
+    <li>
+      <%= link_to post.name, post %>
+      <%= link_to "editer", [:edit, post] %>
+      <%= link_to "supprimer", post, method: :delete, data:{confirm: 'sur ?'} %>
+    </li>
+  <% end %>
+</ul>
+<%= link_to "Créer un nouvel article", new_post_path %>

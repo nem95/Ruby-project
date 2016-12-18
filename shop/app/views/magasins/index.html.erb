@@ -1,0 +1,47 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Magasins</h1>
+
+<div class="container-fluid">
+  <div class="row">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Chain</th>
+          <th>Name</th>
+          <th>Longitude</th>
+          <th>Latitude</th>
+          <th>Address</th>
+          <th>City</th>
+          <th>Zip</th>
+          <th>Phone</th>
+          <th>Country code</th>
+          <th colspan="3">Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @magasins.each do |magasin| %>
+          <tr>
+            <td><%= magasin.chain %></td>
+            <td><%= magasin.name %></td>
+            <td><%= magasin.longitude %></td>
+            <td><%= magasin.latitude %></td>
+            <td><%= magasin.address %></td>
+            <td><%= magasin.city %></td>
+            <td><%= magasin.zip %></td>
+            <td><%= magasin.phone %></td>
+            <td><%= magasin.country_code %></td>
+            <td><%= link_to 'Show', magasin %></td>
+            <td><%= link_to 'Edit', edit_magasin_path(magasin) %></td>
+            <td><%= link_to 'Destroy', magasin, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<br>
+
+<%= link_to 'New Magasin', new_magasin_path %>

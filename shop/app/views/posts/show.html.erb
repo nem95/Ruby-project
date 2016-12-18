@@ -1,0 +1,5 @@
+<p> <%= link_to 'Revenir aux articles', Post%> </p>
+<h1><%= @posts.name %></h1>
+
+<p><%= @posts.content %></p>
+<p><%= time_ago_in_words(@posts.created_at) %></p>

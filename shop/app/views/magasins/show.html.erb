@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Chain:</strong>
+  <%= @magasin.chain %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @magasin.name %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @magasin.longitude %>
+</p>
+
+<p>
+  <strong>Latitude:</strong>
+  <%= @magasin.latitude %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @magasin.address %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @magasin.city %>
+</p>
+
+<p>
+  <strong>Zip:</strong>
+  <%= @magasin.zip %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @magasin.phone %>
+</p>
+
+<p>
+  <strong>Country code:</strong>
+  <%= @magasin.country_code %>
+</p>
+
+<%= link_to 'Edit', edit_magasin_path(@magasin) %> |
+<%= link_to 'Back', magasins_path %>

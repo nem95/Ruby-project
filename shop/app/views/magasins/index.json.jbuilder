@@ -1,0 +1,1 @@
+json.array! @magasins, partial: 'magasins/magasin', as: :magasin
