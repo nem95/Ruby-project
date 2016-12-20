@@ -6,7 +6,9 @@
 <div class="container">
   <div class="row">
     <div id="output"></div>
-      <input class="bar" type="range" id="distanceVal" value="15" max="50" min="0"/>
+      <input class="bar" type="range" id="distanceVal" value="15" max="1000" min="0" oninput="ageOutputId.value = distanceVal.value +' km'"/>
+      <output name="ageOutputName" id="ageOutputId">15 km</output>
+      <button type="button" name="button" id="reload">Actualiser</button>
     <div id="map"></div>
 
     <!--<table class="table table-hover">
@@ -52,14 +54,34 @@
   </div>
 </div>
 
+
 <script>
   var myLatLng = [];
 
   <% @magasins.each do |magasin| %>
-    myLatLng.push({lat: <%= magasin.latitude %>, lng: <%= magasin.longitude %>});
+    myLatLng.push([
+      <%= magasin.id %>,
+      {
+        lat:<%= magasin.latitude %>,
+        lng: <%= magasin.longitude %>
+      },
+      '<%= magasin.name %>',
+      '<%= magasin.address %>',
+      '<%= magasin.city %>',
+      <%= magasin.zip %>,
+      <%= magasin.phone %>
+    ]);
   <% end %>
 
-  function initMap() {
+
+  var distance = 15000
+
+    $('#reload').on("click", function() {
+      var distance = $('#distanceVal').val()*1000;
+      initMap(distance);
+    });
+
+  function initMap(distance) {
 
     // Create a map object and specify the DOM element for display.
 
@@ -83,26 +105,62 @@
               };
 
         infoWindow.setPosition(pos);
-        infoWindow.setContent('Location found.');
+        infoWindow.setContent('Vous êtes ici !! ');
 
         map.setCenter(pos);
-        map.setZoom(13);
+        map.setZoom(12);
 
-        for (var variable of myLatLng) {
-          //console.log(variable);
+        var marker, i
 
-          var markersArray = [];
+
+        for (i = 0; i < myLatLng.length; i++) {
+
+          var id = myLatLng[i][0];
+          var latLng = myLatLng[i][1];
+          var name = myLatLng[i][2];
+          var address = myLatLng[i][3];
+
+          //latlngset = new google.maps.LatLng(latLng);
 
           var origin1 = pos;
-          var origin2 = variable;
+          var origin2 = latLng;
 
           var a = new google.maps.LatLng(pos);
-          var b = new google.maps.LatLng(variable);
-          if (google.maps.geometry.spherical.computeDistanceBetween(a , b) < 15000) {
+          var b = new google.maps.LatLng(latLng);
+
+          if (distance === undefined) {
+               distance = 15000;
+          }
+
+
+          if (google.maps.geometry.spherical.computeDistanceBetween(a , b) < distance) {
+
+            var content = '<div id="content"><a href="/magasins/'+id+'">'+
+            '<h1 id="firstHeading" class="firstHeading">'+name+'</h1>'+
+             address+'</a></div>';
+
+            var infowindow = new google.maps.InfoWindow();
+
             var marker = new google.maps.Marker({
               map: map,
-              position: variable,
+              position: latLng,
+              html: name + address
             });
+
+            google.maps.event.addListener(marker, "click", function () {
+                infowindow.setContent(content);
+                infowindow.open(map, this);
+            });
+
+            /*google.maps.event.addListener(marker, 'click', (function(marker, content, infowindow) {
+              return function() {
+                   console.log('click');
+
+                   infowindow.setContent(content);
+                   infowindow.open(map, marker);
+                };
+            })(marker,content,infowindow));*/
+
           }
 
         }
@@ -122,11 +180,5 @@
       }
       markersArray = [];
     }
-
-
-
-
-
-
 
 </script>
