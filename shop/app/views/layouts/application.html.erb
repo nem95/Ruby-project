@@ -15,7 +15,9 @@
     <style type="text/css">
        html, body { height: 100%; margin: 0; padding: 0; }
        #map {width: 100%; height: 65vh; margin-top: 25px;}
+       .rose, h1{ color: #F01F74 !important;}
      </style>
+
      <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   </head>
@@ -31,13 +33,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <%= link_to 'Shopmium', magasins_path, class: "navbar-brand" %>
+          <%= link_to 'Shopmium', magasins_path, class: "navbar-brand rose" %>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li><%= link_to 'Ajouter un Magasin', new_magasin_path %></li>
+            <li><%= link_to 'Ajouter un Magasin', new_magasin_path, class: "rose" %></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
