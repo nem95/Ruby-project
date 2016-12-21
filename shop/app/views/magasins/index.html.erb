@@ -1,15 +1,29 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Magasins</h1>
-
-
 <div class="container">
+  <% if notice%>
+    <div class="alert alert-success">
+      <p id="notice"><%= notice %></p>
+    </div>
+  <% end %>
+  <h1>Magasins</h1>
+
   <div class="row">
     <div id="output"></div>
-      <input class="bar" type="range" id="distanceVal" value="15" max="1000" min="0" oninput="ageOutputId.value = distanceVal.value +' km'"/>
-      <output name="ageOutputName" id="ageOutputId">15 km</output>
-      <button type="button" name="button" id="reload">Actualiser</button>
-    <div id="map"></div>
+      <div class="col-md-12">
+        <div class="col-xs-6">
+          <input class="bar" type="range" id="distanceVal" value="15" max="1000" min="0" step="5" oninput="ValDistance.value = distanceVal.value +' km'"/>
+        </div>
+
+        <div class="col-xs-3">
+          <strong><output name="ValDistance" id="ValDistance">15 km</output></strong>
+        </div>
+        <div class="col-xs-3">
+          <button type="button" class="btn btn-success" name="reload-maps" id="reload">Actualiser</button>
+        </div>
+        <br>
+      </div>
+    </div>
+  <div class="row">
+    <div id="map"  onload="initMap();"></div>
 
     <!--<table class="table table-hover">
       <thead>
@@ -50,10 +64,10 @@
 
     <br>
 
-    <%= link_to 'New Magasin', new_magasin_path %>
   </div>
 </div>
 
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5iAPUix9Jg8ZeI2Cd1Mghn6dvr5pqzDU&callback=initMap&libraries=geometry" async defer></script>
 
 <script>
   var myLatLng = [];
@@ -74,7 +88,6 @@
   <% end %>
 
 
-  var distance = 15000
 
     $('#reload').on("click", function() {
       var distance = $('#distanceVal').val()*1000;
@@ -86,7 +99,7 @@
     // Create a map object and specify the DOM element for display.
 
     var map = new google.maps.Map(document.getElementById('map'), {
-      center: new google.maps.LatLng(48.859452, 2.348923),
+      //center: new google.maps.LatLng(48.859452, 2.348923),
       scrollwheel: false,
       zoom: 10
     });
@@ -144,11 +157,11 @@
             var marker = new google.maps.Marker({
               map: map,
               position: latLng,
-              html: name + address
+              html: content
             });
 
             google.maps.event.addListener(marker, "click", function () {
-                infowindow.setContent(content);
+                infowindow.setContent(this.html);
                 infowindow.open(map, this);
             });
 
